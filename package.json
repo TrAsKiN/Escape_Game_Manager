@@ -1,0 +1,18 @@
+{
+  "name": "Escape Game Editor and Manager",
+  "version": "3.1.0",
+  "main": "main.js",
+  "dependencies": {
+    "discord.js": "^11.6.4",
+    "nodemon": "^1.19.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "CrimsonFreak",
+  "license": "ISC",
+  "description": "Manage a text based escape Game trhough a discord Server. Type in your texts and codes and answers, and let people play your game."
+}
