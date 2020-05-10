@@ -10,7 +10,7 @@ main.on('message', message => {
 
   if (message.author.bot) return
 
-  let pFile     = JSON.parse(fs.readFileSync('./players.json'))
+  let pFile     = JSON.parse(fs.readFileSync('c:/players.json'))
   let guildPath = `./guilds/${message.channel.guild}/${message.channel.guild}.json`
   if (fs.existsSync(guildPath)) {data = JSON.parse(fs.readFileSync(guildPath))}
 
@@ -39,14 +39,19 @@ main.on('message', message => {
 	if (message.content === data.start) {
     let suc = require(`../guilds/${message.channel.guild}/success/0.js`)
     message.reply(`Attention si vous commencez une partie sur ce serveur, vous ne pourrez pas continuer la partie sur les autres serveurs.`)
+    message.channel
+    .guild
+    .member(message.author.id)
+    .addRole(
+      message.channel.guild.roles.find(r => r.name === ('etape 1'))
+    )
 
     if (pFile.hasOwnProperty(message.author.id)) {
-      message.channel
-	    .guild
-	    .member(message.author.id)
-			.addRole(
-			  message.channel.guild.roles.find(r => r.name === ('etape 1'))
-      )
+
+      pFile[message.author.id].forEach(g => {
+        if (g === message.channel.guild.name) return
+        else {}
+      })
       pFile[message.author.id].push(message.channel.guild.name)
     }
     else {pFile[message.author.id] = [message.channel.guild.name]}
