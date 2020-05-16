@@ -1,0 +1,4 @@
+config.json
+node_modules/
+guilds/*
+!guilds/example_guild/
