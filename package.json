@@ -1,5 +1,5 @@
 {
-  "name": "Escape Game Editor and Manager",
+  "name": "escape-game-editor-and-manager",
   "version": "3.1.0",
   "main": "main.js",
   "dependencies": {
