@@ -13,6 +13,7 @@
   },
   "keywords": [],
   "author": "CrimsonFreak",
+  "contributors": ["TrAsKiN"],
   "license": "ISC",
   "description": "Manage a text based escape Game trhough a discord Server. Type in your texts and codes and answers, and let people play your game."
 }
