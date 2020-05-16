@@ -5,13 +5,13 @@ let config = require('./config.json')
 
 module.exports = main
 try {
-	require('./events/ready.js')
-	require('./events/guildMemberAdd.js')
-	require('./events/message.js')
-	require('./events/guildMemberRemove.js')
+    require('./events/ready.js')
+    require('./events/message.js')
+    require('./events/guildMemberAdd.js')
+    require('./events/guildMemberRemove.js')
 }
-catch(err){
-	console.log(err)
+catch(err) {
+    console.log(err)
 }
 
 main.login(config.token)
