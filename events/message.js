@@ -65,10 +65,11 @@ module.exports = (message) => {
             }
         });
 
-        if (data.answers[`etape 0`].file !== {}) {
+        if (data.answers[`etape 0`].file !== undefined) {
+            let att = new MessageAttachment(data.answers[`etape 0`].file);
             message.author.createDM()
             .then((channel) => {
-                channel.send(suc);
+                channel.send(suc, att);
             });
         } else {
             message.author.createDM()

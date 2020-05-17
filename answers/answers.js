@@ -56,12 +56,12 @@ module.exports = (message, main) => {
     }
 
     if (pos === ans.etapes & ans.answers[`etape ${pos}`].code.includes(msg.toLowerCase())) {
-        message.react(`:white_check_mark:`);
+        message.react(`✔`);
         attchk();
         roleup(ans.answers.final);
         return;
     } else if (ans.answers[`etape ${pos}`].code.includes(msg)) {
-        message.react(`:white_check_mark:`);
+        message.react(`✔`);
         attchk();
         roleup(`Etape ${pos + 1}`);
         return;
@@ -69,7 +69,7 @@ module.exports = (message, main) => {
         console.log(ans.answers.final);
         return message.reply(`Vous avez terminé ! Crédits à venir...`);
     } else {
-        message.react(`:x:`);
+        message.react(`❌`);
         return message.reply(rand);
     }
 }
