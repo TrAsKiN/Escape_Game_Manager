@@ -19,15 +19,16 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if ((!message.content.startsWith(prefix) && message.channel.type === 'text') || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
 
-    if (!client.commands.has(commandName)) return;
+    if (!client.commands.has(commandName) && message.channel.type !== 'dm') return;
 
     const command = client.commands.get(commandName)
-        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName))
+        || client.commands.get('answers');
 
     if (!command) return;
 
