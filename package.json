@@ -8,10 +8,15 @@
     "url": "git+https://github.com/CrimsonFreak/Escape_Game_Manager.git"
   },
   "author": "CrimsonFreak",
-  "contributors": ["TrAsKiN"],
+  "contributors": [
+    "TrAsKiN"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/CrimsonFreak/Escape_Game_Manager/issues"
   },
-  "homepage": "https://github.com/CrimsonFreak/Escape_Game_Manager"
+  "homepage": "https://github.com/CrimsonFreak/Escape_Game_Manager",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  }
 }
