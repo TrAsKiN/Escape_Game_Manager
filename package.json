@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "description": "Manage a text-based escape game through a Discord server. Type your texts, codes and answers, and let people play your game.",
   "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CrimsonFreak/Escape_Game_Manager.git"
