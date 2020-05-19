@@ -21,6 +21,6 @@
   "homepage": "https://github.com/CrimsonFreak/Escape_Game_Manager",
   "dependencies": {
     "discord.js": "^12.2.0",
-    "mysql": "^2.18.1"
+    "promise-mysql": "^4.1.3"
   }
 }
