@@ -18,7 +18,7 @@ module.exports = {
                     },
                     {
                         name: `Final step`,
-                        value: `Type the **!start** command to start the game!`
+                        value: `Type **!start** to play the game!`
                     },
                 );
 
