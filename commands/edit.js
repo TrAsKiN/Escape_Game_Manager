@@ -6,33 +6,33 @@ module.exports = {
     usage: '<parameter> <value>',
     guildOnly: true,
     aliases: ['set'],
+    public: true,
+    permissions: [
+        'MANAGE_ROLES'
+    ],
     execute(message, args) {
-        if (message.member.hasPermission('MANAGE_ROLES')) {
-            if (!args[0]) {
-                const embed = new Discord.MessageEmbed()
-                    .setTitle('How to I edit a game?')
-                    .setDescription('Here are the different steps to follow to edit your game.')
-                    .addFields(
-                        {
-                            name: `First step`,
-                            value: `Set the number of steps you want in your game by typing the command:\n**!edit step *X*** (***X*** being the desired number of steps)`
-                        },
-                        {
-                            name: `Final step`,
-                            value: `Type **!start** to play the game!`
-                        },
-                    );
+        if (!args[0]) {
+            const embed = new Discord.MessageEmbed()
+                .setTitle('How to edit a game')
+                .setDescription('Here are the different steps to follow to edit your game.')
+                .addFields(
+                    {
+                        name: `Define the number of steps`,
+                        value: `Set the number of steps you want in your game by typing the command:\n**!edit step *X*** (***X*** being the desired number of steps)`
+                    },
+                    {
+                        name: `And finally...`,
+                        value: `Type **!start** to play the game!`
+                    },
+                );
 
-                message.channel.send(embed);
-            } else if (args[0] === 'step') {
-                if (!args[1] || isNaN(args[1])) {
-                    message.reply(`you have not given a value or the value is not a number!`);
-                } else {
-                    message.channel.send(`You have defined ${args[1]} steps for your game.`);
-                }
+            message.channel.send(embed);
+        } else if (args[0] === 'step') {
+            if (!args[1] || isNaN(args[1])) {
+                message.reply(`you have not given a value or the value is not a number!`);
+            } else {
+                message.channel.send(`You have defined ${args[1]} steps for your game.`);
             }
-        } else {
-            return message.reply(`you do not have the rights to edit the game (you must be able to manage roles).`);
         }
     }
 }
