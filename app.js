@@ -14,10 +14,6 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-    client.guilds.cache.forEach(guild => {
-        guild.me.setNickname(`EGM v2`)
-            .then(user => console.log(`${user.nickname} in ${user.guild.name} ready!`));
-    })
     client.user.setPresence({ activity: { name: '!help', type: 'LISTENING' } });
 });
 
