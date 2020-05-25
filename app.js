@@ -14,7 +14,8 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-    client.user.setPresence({ activity: { name: '!help', type: 'LISTENING' } });
+    client.user.setPresence({ activity: { name: `${prefix}help`, type: 'LISTENING' } });
+    console.log(`${client.user.username} is ready!`);
 });
 
 client.on('message', message => {
