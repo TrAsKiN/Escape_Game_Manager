@@ -16,8 +16,6 @@ module.exports = class Localization {
 
     parse(text, substitut) {
         var content = new Map(Object.entries(this.locales.get(this.locale))).get(text);
-        console.log(typeof content);
-        console.log(typeof substitut);
         if (substitut) {
             return content.replace(/(%\w+%)/, substitut);
         }
