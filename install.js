@@ -13,9 +13,10 @@ fs.access('config.json', fs.constants.F_OK, (doesNotExist) => {
 
             const config = {
                 "prefix": "!",
-                "token": `${answer}`
+                "token": `${answer}`,
+                "locale": "en"
             };
-            
+
             fs.writeFile('config.json', JSON.stringify(config), 'utf8', (error) => {
                 if (error) {
                     console.log(error);

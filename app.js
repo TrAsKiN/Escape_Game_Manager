@@ -1,8 +1,10 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const Localization = require('./Localization.js');
 
-const { prefix, token } = require('./config.json');
+const { prefix, token, locale } = require('./config.json');
 
+const localize = new Localization(locale);
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
@@ -14,8 +16,10 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-    client.user.setPresence({ activity: { name: `${prefix}help`, type: 'LISTENING' } });
-    console.log(`${client.user.username} is ready!`);
+    client.user.setPresence({ activity: { name: `${prefix}help`, type: 'LISTENING' } })
+        .then(() => {
+            console.log(localize.parse('system_ready', client.user.username));
+        });
 });
 
 client.on('message', message => {
@@ -32,25 +36,15 @@ client.on('message', message => {
 
     if (!command) return;
 
-    if (command.args && !args.length) {
-        let reply = `You didn't provide any arguments, ${message.author}!`;
-
-        if (command.usage) {
-            reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
-        }
-
-        return message.channel.send(reply);
-    }
-
     if (command.guildOnly && message.channel.type !== 'text') {
-        return message.reply(`I can't execute that command inside DMs!`);
+        return message.reply(localize.parse('general_notdm'));
     }
 
     try {
         command.execute(message, args);
     } catch (error) {
         console.error(error);
-        message.reply(`there was an error trying to execute that command!`);
+        message.reply(localize.parse('general_error'));
     }
 });
 
