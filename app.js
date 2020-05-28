@@ -4,8 +4,8 @@ const Localization = require('./Localization.js');
 
 const { prefix, token, locale } = require('./config.json');
 
-const localize = new Localization(locale);
 const client = new Discord.Client();
+const localize = new Localization(client, locale);
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -18,7 +18,7 @@ for (const file of commandFiles) {
 client.once('ready', () => {
     client.user.setPresence({ activity: { name: `${prefix}help`, type: 'LISTENING' } })
         .then(() => {
-            console.log(localize.parse('system_ready', client.user.username));
+            console.log(localize.parse('system_ready'));
         });
 });
 

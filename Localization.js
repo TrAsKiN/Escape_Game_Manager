@@ -1,24 +1,30 @@
 const fs = require('fs');
+const variables = require('./locales/variables.json');
 
 module.exports = class Localization {
-    localesFiles = fs.readdirSync('./locales').filter(file => file.endsWith('.json'));
-    locales = new Map();
+    _localesFiles = fs.readdirSync('./locales').filter(file => file.endsWith('.json'));
+    _locales = new Map();
+    _variables = new Map(Object.entries(variables));
+    client;
     locale;
 
-    constructor(locale) {
-        this.locale = locale || `en`;
+    constructor(client, locale) {
+        this.client = client;
+        this.locale = locale;
 
-        for (const file of this.localesFiles) {
+        for (const file of this._localesFiles) {
             const locale = require(`./locales/${file}`);
-            this.locales.set(file.split('.').shift(), locale);
+            this._locales.set(file.split('.').shift(), locale);
         }
     }
 
-    parse(text, substitut) {
-        var content = new Map(Object.entries(this.locales.get(this.locale))).get(text);
-        if (substitut) {
-            return content.replace(/(%\w+%)/, substitut);
-        }
-        return content;
+    parse(text) {
+        var content = new Map(Object.entries(this._locales.get(this.locale))).get(text);
+        return content.replace(/(%\w+%)/g, correspondence => {
+            if (this._variables.get(correspondence)) {
+                return eval(this._variables.get(correspondence));
+            }
+            return correspondence;
+        });
     }
 }
