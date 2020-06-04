@@ -1,5 +1,4 @@
 {
-    "system_ready": "%username% is ready!",
     "general_notdm": "I can't execute that command inside DMs!",
     "general_error": "there was an error trying to execute that command!"
 }

@@ -1,5 +1,4 @@
 {
-    "system_ready": "%username% est prêt !",
     "general_notdm": "impossible d'utiliser cette commande en message privé !",
     "general_error": "il y a eu une erreur en utilisant cette commande !"
 }
