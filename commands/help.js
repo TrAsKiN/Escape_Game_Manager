@@ -1,12 +1,13 @@
-const { prefix } = require('../config.json');
+const Localization = require('../Localization.js');
+const { prefix, locale } = require('../config.json');
+const localize = new Localization(locale);
 
 module.exports = {
 	name: 'help',
-	description: 'List all of my commands or info about a specific command.',
+	description: localize.parse('help_description'),
 	aliases: ['commands'],
-	usage: '<command name>',
+	usage: '<command>',
     guildOnly: true,
-    cooldown: 5,
     public: true,
     permissions: [
         'MANAGE_ROLES'
@@ -16,35 +17,33 @@ module.exports = {
         const { commands } = message.client;
 
         if (!args.length) {
-            data.push(`Here's a list of all my commands:`);
+            data.push(localize.parse('help_listing'));
             data.push(commands.filter(command => command.public).map(command => command.name).join(', '));
-            data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+            data.push('\n'+ localize.parse('help_usage', { "%help_command%": `${prefix}help` }));
 
             return message.author.send(data, { split: true })
                 .then(() => {
                     if (message.channel.type === 'dm') return;
-                    message.reply(`I've sent you a DM with all my commands!`);
+                    message.reply(localize.parse('help_senddm'));
                 })
                 .catch(error => {
                     console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-                    message.reply(`it seems like I can't DM you! Do you have DMs disabled?`);
+                    message.reply(localize.parse('help_dmdisabled'));
                 });
         }
 
         const name = args[0].toLowerCase();
-        const command = commands.find(c => c.name && c.public) || commands.find(c => c.aliases && c.aliases.includes(name) && c.public);
+        const command = commands.find(c => c.name === name && c.public) || commands.find(c => c.aliases && c.aliases.includes(name) && c.public);
 
         if (!command) {
-            return message.reply(`that's not a valid command!`);
+            return message.reply(localize.parse('help_notvalid'));
         }
 
-        data.push(`**Name:** ${command.name}`);
+        data.push(localize.parse('help_commandname', { "%command_name%": command.name }));
 
-        if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
-        if (command.description) data.push(`**Description:** ${command.description}`);
-        if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
-
-        data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
+        if (command.aliases) data.push(localize.parse('help_commandaliases', { "%command_aliases%": command.aliases.join(', ') }));
+        if (command.description) data.push(localize.parse('help_commanddescription', { "%command_description%": command.description }));
+        if (command.usage) data.push(localize.parse('help_commandusage', { "%command_usage%": `${prefix}${command.name} ${command.usage}` }));
 
         message.channel.send(data, { split: true });
     },

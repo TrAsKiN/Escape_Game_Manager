@@ -1,6 +1,10 @@
+const Localization = require('../Localization.js');
+const { locale } = require('../config.json');
+const localize = new Localization(locale);
+
 module.exports = {
     name: 'answers',
-    description: 'Checks responses sent in private.',
+    description: localize.parse('answers_description'),
     execute(message, args) {
         message.react(`👁`);
     }
