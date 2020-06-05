@@ -16,27 +16,27 @@ module.exports = {
     execute(message, args) {
         if (!args[0]) {
             const embed = new Discord.MessageEmbed()
-                .setTitle(localize.parse('edit_howtitle'))
-                .setDescription(localize.parse('edit_howdescription'))
+                .setTitle(localize.parse('edit_howTitle'))
+                .setDescription(localize.parse('edit_howDescription'))
                 .addFields(
                     {
-                        name: localize.parse('edit_howintrotitle'),
-                        value: localize.parse('edit_howintrotext')
+                        name: localize.parse('edit_howIntroTitle'),
+                        value: localize.parse('edit_howIntroText')
                     },
                     {
-                        name: localize.parse('edit_howstarttitle'),
-                        value: localize.parse('edit_howstarttext')
+                        name: localize.parse('edit_howStartTitle'),
+                        value: localize.parse('edit_howStartText')
                     },
                 );
 
             message.channel.send(embed);
         } else if (args[0] === 'intro') {
             if (!args[1]) {
-                message.channel.send(localize.parse('edit_introtext'));
+                message.channel.send(localize.parse('edit_introText'));
             } else if (args[1] === 'image') {
-                message.channel.send(localize.parse('edit_introimage'));
+                message.channel.send(localize.parse('edit_introImage'));
             } else {
-                message.reply(localize.parse('edit_introerror'));
+                message.reply(localize.parse('edit_introError'));
             }
         }
     }

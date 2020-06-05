@@ -9,6 +9,6 @@ module.exports = {
     public: true,
     execute(message, args) {
         message.react(`🏁`);
-        message.reply(localize.parse('start_gamestarted'));
+        message.reply(localize.parse('start_gameStarted'));
     }
 }

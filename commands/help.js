@@ -24,11 +24,11 @@ module.exports = {
             return message.author.send(data, { split: true })
                 .then(() => {
                     if (message.channel.type === 'dm') return;
-                    message.reply(localize.parse('help_senddm'));
+                    message.reply(localize.parse('help_sendDm'));
                 })
                 .catch(error => {
                     console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-                    message.reply(localize.parse('help_dmdisabled'));
+                    message.reply(localize.parse('help_dmDisabled'));
                 });
         }
 
@@ -36,14 +36,14 @@ module.exports = {
         const command = commands.find(c => c.name === name && c.public) || commands.find(c => c.aliases && c.aliases.includes(name) && c.public);
 
         if (!command) {
-            return message.reply(localize.parse('help_notvalid'));
+            return message.reply(localize.parse('help_notValid'));
         }
 
-        data.push(localize.parse('help_commandname', { "%command_name%": command.name }));
+        data.push(localize.parse('help_commandName', { "%command_name%": command.name }));
 
-        if (command.aliases) data.push(localize.parse('help_commandaliases', { "%command_aliases%": command.aliases.join(', ') }));
-        if (command.description) data.push(localize.parse('help_commanddescription', { "%command_description%": command.description }));
-        if (command.usage) data.push(localize.parse('help_commandusage', { "%command_usage%": `${prefix}${command.name} ${command.usage}` }));
+        if (command.aliases) data.push(localize.parse('help_commandAliases', { "%command_aliases%": command.aliases.join(', ') }));
+        if (command.description) data.push(localize.parse('help_commandDescription', { "%command_description%": command.description }));
+        if (command.usage) data.push(localize.parse('help_commandUsage', { "%command_usage%": `${prefix}${command.name} ${command.usage}` }));
 
         message.channel.send(data, { split: true });
     },

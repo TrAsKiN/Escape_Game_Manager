@@ -38,7 +38,7 @@ client.on('message', message => {
     if (!command) return;
 
     if (command.guildOnly && message.channel.type !== 'text') {
-        return message.reply(localize.parse('general_notdm'));
+        return message.reply(localize.parse('general_notDm'));
     }
 
     try {
