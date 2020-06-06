@@ -1,11 +1,29 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const { Sequelize, Op } = require('sequelize');
 const Localization = require('./Localization.js');
 
 const { prefix, token, locale } = require('./config.json');
 
 const client = new Discord.Client();
 const localize = new Localization(locale);
+
+const sequelize = new Sequelize('database', 'username', 'password', {
+    host: 'localhost',
+    dialect: 'sqlite',
+    logging: false,
+    storage: 'database.sqlite',
+});
+
+const Users = sequelize.import('models/Users');
+const Games = sequelize.import('models/Games');
+const Progress = sequelize.import('models/Progress');
+const Puzzles = sequelize.import('models/Puzzles');
+
+Games.hasOne(Users, {foreignKey: 'active_game'});
+Games.hasOne(Progress, {foreignKey: 'game'});
+Progress.hasMany(Users, {foreignKey: 'progress'});
+Puzzles.hasOne(Progress, {foreignKey: 'puzzle'});
 
 client.commands = new Discord.Collection();
 
@@ -17,6 +35,7 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
+    sequelize.sync();
     client.user.setPresence({ activity: { name: `${prefix}help`, type: 'LISTENING' } })
         .then(() => {
             console.log(`${client.user.username} is ready!`);
