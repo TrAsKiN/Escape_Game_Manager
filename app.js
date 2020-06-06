@@ -1,12 +1,14 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { Sequelize, Op } = require('sequelize');
+const { Sequelize } = require('sequelize');
 const Localization = require('./Localization.js');
 
 const { prefix, token, locale } = require('./config.json');
 
 const client = new Discord.Client();
 const localize = new Localization(locale);
+
+client.models = new Discord.Collection();
 
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
@@ -15,15 +17,15 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     storage: 'database.sqlite',
 });
 
-const Users = sequelize.import('models/Users');
-const Games = sequelize.import('models/Games');
-const Progress = sequelize.import('models/Progress');
-const Puzzles = sequelize.import('models/Puzzles');
+client.models.set('Users', sequelize.import('models/Users'));
+client.models.set('Games', sequelize.import('models/Games'));
+client.models.set('Progress', sequelize.import('models/Progress'));
+client.models.set('Puzzles', sequelize.import('models/Puzzles'));
 
-Games.hasOne(Users, {foreignKey: 'active_game'});
-Games.hasOne(Progress, {foreignKey: 'game'});
-Progress.hasMany(Users, {foreignKey: 'progress'});
-Puzzles.hasOne(Progress, {foreignKey: 'puzzle'});
+client.models.get('Games').hasOne(client.models.get('Users'), {foreignKey: 'active_game'});
+client.models.get('Games').hasOne(client.models.get('Progress'), {foreignKey: 'game'});
+client.models.get('Progress').hasMany(client.models.get('Users'), {foreignKey: 'progress'});
+client.models.get('Puzzles').hasOne(client.models.get('Progress'), {foreignKey: 'puzzle'});
 
 client.commands = new Discord.Collection();
 
@@ -36,7 +38,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     sequelize.sync();
-    client.user.setPresence({ activity: { name: `${prefix}help`, type: 'LISTENING' } })
+    client.user.setActivity(`${prefix}help`, { type: 'LISTENING' })
         .then(() => {
             console.log(`${client.user.username} is ready!`);
         });

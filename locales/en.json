@@ -17,15 +17,25 @@
     "help_commandUsage": "**Usage:** %command_usage%",
 
     "edit_description": "Allows an administrator to edit the game settings.",
+
     "edit_howTitle": "How to edit a game",
     "edit_howDescription": "Here are the different steps to follow to edit your game.",
     "edit_howIntroTitle": "Define the intro",
     "edit_howIntroText": "Type the command `!edit intro` and then write in one message the introduction text of your game.\nYou can add an image to your text using the `!edit intro image` command and then entering the url of your image.",
     "edit_howStartTitle": "And finally...",
     "edit_howStartText": "Type `!start` to play the game!",
+
     "edit_introText": "Please enter the intro text for your game:",
+    "edit_introTextChanged": "The following text has been recorded:\n>>> %intro_text%",
     "edit_introImage": "Please enter the url of your game intro image:",
     "edit_introError": "I don't recognize the arguments for the `!edit intro` command!",
+
+    "edit_endingText": "Please enter the ending text for your game:",
+    "edit_endingTextChanged": "The following text has been recorded:\n>>> %ending_text%",
+    "edit_endingImage": "Please enter the url of your game ending image:",
+    "edit_endingError": "I don't recognize the arguments for the `!edit ending` command!",
+
+    "edit_textError": "An error occurred while saving your text, please contact support.",
 
     "answers_description": "Checks responses sent in private."
 }
