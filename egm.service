@@ -1,0 +1,14 @@
+# Copy this file in /etc/systemd/system
+
+[Unit]
+Description=EGM
+
+[Service]
+ExecStart=/usr/bin/node /var/www/escape-game-manager/app.js
+Restart=always
+User=nobody
+Group=nogroup
+WorkingDirectory=/var/www/escape-game-manager
+
+[Install]
+WantedBy=multi-user.target
