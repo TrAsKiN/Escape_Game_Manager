@@ -22,6 +22,8 @@
     "edit_howDescription": "Here are the different steps to follow to edit your game.",
     "edit_howIntroTitle": "Define the intro",
     "edit_howIntroText": "Type the command `!edit intro` and then write in one message the introduction text of your game.\nYou can add an image to your text using the `!edit intro image` command and then entering the url of your image.",
+    "edit_howEndingTitle": "Define the ending",
+    "edit_howEndingText": "Type the command `!edit ending` and then write in one message the ending text of your game.\nYou can add an image to your text using the `!edit ending image` command and then entering the url of your image.",
     "edit_howStartTitle": "And finally...",
     "edit_howStartText": "Type `!start` to play the game!",
 

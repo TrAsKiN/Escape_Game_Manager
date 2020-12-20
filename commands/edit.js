@@ -36,6 +36,10 @@ module.exports = {
                         value: localize.parse('edit_howIntroText')
                     },
                     {
+                        name: localize.parse('edit_howEndingTitle'),
+                        value: localize.parse('edit_howEndingText')
+                    },
+                    {
                         name: localize.parse('edit_howStartTitle'),
                         value: localize.parse('edit_howStartText')
                     },
