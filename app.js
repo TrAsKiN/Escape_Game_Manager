@@ -3,6 +3,9 @@ const Discord = require('discord.js');
 const { Sequelize } = require('sequelize');
 const Localization = require('./Localization.js');
 
+/**
+ * Load config file
+ */
 const { prefix, token, locale } = require('./config.json');
 
 const client = new Discord.Client();
@@ -10,30 +13,36 @@ const localize = new Localization(locale);
 
 client.models = new Discord.Collection();
 
-const sequelize = new Sequelize('database', 'username', 'password', {
+const sequelize = new Sequelize({
     host: 'localhost',
     dialect: 'sqlite',
     logging: false,
     storage: 'database.sqlite',
 });
 
+/**
+ * Import the entities for the database
+ */
 client.models.set('Users', sequelize.import('models/Users'));
 client.models.set('Games', sequelize.import('models/Games'));
 client.models.set('Progress', sequelize.import('models/Progress'));
 client.models.set('Puzzles', sequelize.import('models/Puzzles'));
 
-client.models.get('Games').hasOne(client.models.get('Users'), {foreignKey: 'active_game'});
-client.models.get('Games').hasOne(client.models.get('Progress'), {foreignKey: 'game'});
-client.models.get('Progress').hasMany(client.models.get('Users'), {foreignKey: 'progress'});
-client.models.get('Puzzles').hasOne(client.models.get('Progress'), {foreignKey: 'puzzle'});
+/**
+ * Set the relationship of the entities
+ */
+client.models.get('Games').hasOne(client.models.get('Users'), { foreignKey: 'active_game' });
+client.models.get('Games').hasOne(client.models.get('Progress'), { foreignKey: 'game' });
+client.models.get('Progress').hasMany(client.models.get('Users'), { foreignKey: 'progress' });
+client.models.get('Puzzles').hasOne(client.models.get('Progress'), { foreignKey: 'puzzle' });
 
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
 }
 
 client.once('ready', () => {
@@ -64,7 +73,8 @@ client.on('message', message => {
 
     try {
         command.execute(message, args);
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
         message.reply(localize.parse('general_error'));
     }

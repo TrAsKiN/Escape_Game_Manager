@@ -4,7 +4,7 @@ module.exports = class Localization {
     locale;
 
     constructor(locale) {
-        var localesFiles = fs.readdirSync('./locales').filter(file => file.endsWith('.json'));
+        const localesFiles = fs.readdirSync('./locales').filter(file => file.endsWith('.json'));
 
         if (localesFiles.includes(`${locale}.json`)) {
             this.locale = new Map(Object.entries(require('./locales/'+ localesFiles.find(file => file === `${locale}.json`))));
@@ -13,6 +13,11 @@ module.exports = class Localization {
         }
     }
 
+    /**
+     * @param text string
+     * @param substitutes string[]
+     * @returns string
+     */
     parse(text, substitutes) {
         const content = this.locale.get(text);
 

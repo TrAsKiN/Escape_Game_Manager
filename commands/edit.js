@@ -30,21 +30,18 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle(localize.parse('edit_howTitle'))
                 .setDescription(localize.parse('edit_howDescription'))
-                .addFields(
-                    {
-                        name: localize.parse('edit_howIntroTitle'),
-                        value: localize.parse('edit_howIntroText')
-                    },
-                    {
-                        name: localize.parse('edit_howEndingTitle'),
-                        value: localize.parse('edit_howEndingText')
-                    },
-                    {
-                        name: localize.parse('edit_howStartTitle'),
-                        value: localize.parse('edit_howStartText')
-                    },
+                .addField(
+                    localize.parse('edit_howIntroTitle'),
+                    localize.parse('edit_howIntroText')
+                )
+                .addField(
+                    localize.parse('edit_howEndingTitle'),
+                    localize.parse('edit_howEndingText')
+                )
+                .addField(
+                    localize.parse('edit_howStartTitle'),
+                    localize.parse('edit_howStartText')
                 );
-
             message.channel.send(embed);
         }
     }
